@@ -1,22 +1,32 @@
 import React, { useState } from 'react'
 
-function Submit({ movies, setMovies, handleChange }) {
+function Submit({ movies, setMovies }) {
     
 
     const [Name, setName] = useState('')
-    const [Rating, setRating] = useState(null);
-    const [Duration, setDuration] = useState(null);
+    const [Rating, setRating] = useState("");
+    const [Duration, setDuration] = useState("");
     
     
     function handleSubmit(e) {
         e.preventDefault();
         
-         const newList = movies.concat({ Name, Rating, Duration });
+        if (Name === "") {
+            return
+        }else{
+            
+            const list = [{Name, Rating, Duration}]
 
-        setMovies(newList);
-        
-        
+          const newList = 
+            list.concat(movies)
+          ;
 
+          setMovies(newList);
+
+          setName("");
+          setDuration("");
+          setRating("");
+        }
 
   
     }
@@ -40,18 +50,40 @@ function Submit({ movies, setMovies, handleChange }) {
         <form
           action=""
           onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column",width:'20%' }}
+          style={{ display: "flex", flexDirection: "column", width: "20%" }}
         >
-          MovieName ={" "}
-          <input type="text" value={Name} onChange={handleChangeName} />
-          Rating={" "}
-          <input type="number" value={Rating} onChange={handleChangeRating} />
-          Duration={" "}
+          <label htmlFor="movie__name">Movie Name</label>
           <input
-            type="text "
-            value={Duration}
-            onChange={handleChangeDuration}
+            id="movie__name"
+            type="text"
+            value={Name}
+            placeholder="Enter Name of Movie"
+            onChange={handleChangeName}
+            required
           />
+          <label htmlFor="movie__Rating">Ratings</label>
+
+          <input
+            id="movie__Rating"
+            type="number"
+            value={Rating}
+            placeholder="Enter Movie's Rating"
+            onChange={handleChangeRating}
+            required
+          />
+
+          <label htmlFor="movie__Duration">Duration</label>
+
+          <input
+            id="movie__Duration"
+            type="time"
+            min="00:01"
+            value={Duration}
+            placeholder="Enter Duration(Time) of Movie"
+            onChange={handleChangeDuration}
+            required
+          />
+          <br />
           <button type="submit">Submit</button>
         </form>
       </div>

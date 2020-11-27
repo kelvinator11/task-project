@@ -19,7 +19,7 @@ function App() {
     })
   
 
-    if (word !== "") {
+    if (word.length > 0) {
       let newList = []
 
       newList = oldList.filter(movie =>
